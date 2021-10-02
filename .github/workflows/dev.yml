@@ -1,0 +1,27 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: DEV - Test & Analyze
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Test & Analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "8.x"
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.0.0'
+          channel: "stable"
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build apk
